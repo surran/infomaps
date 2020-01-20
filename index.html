@@ -1,0 +1,168 @@
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+	#mobile-infobox {
+		display: none;
+		margin: 20px 5px;
+		width: calc(100% - 60px);
+	}
+
+	#list-container {
+		display:inline-block;
+		max-width: 300px;
+		position: relative;
+		background: white;
+		margin: 0px;
+		margin-top: 10px;
+	}
+
+	#mobile-menu-button {
+		display: none;
+		padding: 20px;
+		width: 65px;
+		height: 60px;
+		cursor: pointer;
+		box-sizing: border-box;
+	}
+
+	#close-button {
+		display: none;
+	}
+
+	#map-container {
+		max-width: 700px; 
+		width:100%; 
+		display: inline-block;
+		height: calc(100% - 82px);
+	}
+	#data-container {
+		max-width: 300px; 
+		width:100%; 
+		display: inline-block;
+		vertical-align: top;
+	}
+	#statement {
+		font-size: 20px;
+	}
+
+	#footer {
+		position: relative;
+		background-color: rgb(221, 221, 221);
+		box-sizing: border-box;
+		font-size: 11px;
+		margin: 0px;
+		width: 100%;
+		padding: 5px;
+		text-align: left;
+		font-family: arial;
+	}
+
+	@media only screen and (max-width: 1300px) {
+		#data-container {
+			margin: 20px;
+			width: calc(100% - 40px);
+		}
+		
+		#list-container {
+				position: absolute;
+				display: none;
+				overflow-y: auto;
+				right: 0px;
+				margin-top: 0px;
+				margin-right: 0px;
+				width: calc(100% - 40px);
+				box-shadow: rgba(0, 0, 0, 0.15) 0px 12px 14px;
+		}
+
+		#desktop-infobox {
+			display: none;
+		}
+
+		#mobile-infobox {
+			display: inline-block;
+		}
+
+		#mobile-menu-button {
+			display: inline-block;
+		}
+
+		#close-button {
+			display: inline-block;
+		}
+
+		#map-container {
+			display: block;
+			margin: 0 auto;
+			height: unset;
+		}
+
+		#data-container {
+			display: block;
+			margin: 0 auto;
+			padding-bottom: 20px;
+		}
+
+		#statement {
+			font-size: 16px;
+		}
+	}
+</style>
+<body style="margin: 0px; text-align: center; height: 100%;">
+	<div id="header" style="width: 100%; height: 60px; box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 5px; z-index: 1">
+		<div style="display:inline-block; float: left; font-size: 20px; font-size: 30px; padding: 10px 0px 0px 30px;"><span style="color: red;">InfoMaps</span><span id="desktop-heading"> | <span id="heading" style="font-size: 25px;"></span></span></div>
+		<div id="mobile-menu-button" style= "float: right" onclick="toggleMobileMenu()"><svg height="25px" width="25px"><rect x="0" y="0" height="4" width="25" fill="black"></rect><rect x="0" y="7" height="4" width="25" fill="black"></rect><rect x="0" y="14" height="4" width="25" fill="black"></rect></svg></div>
+	</div>
+	<!-- Maps List -->
+	<div id="list-container" style=" transition: all .5s; padding: 20px; vertical-align: top; text-align: left">
+		<ul id="list" ></ul>
+	</div>
+
+	<!-- Map Container -->
+	<div id="map-container">
+	    <div id="mobile-infobox"
+		     style="padding: 20px; border: 1px solid silver;">
+		    <div id="title-mobile" style="font-size: 20px;"></div>
+		    <div>source: <span id="source-mobile"></span></div>
+		</div>
+		<!-- Statement -->
+		<div id="statement" style="padding: 10px; background: aqua; font-family: arial; text-align: center;"></div>
+		<!-- Map -->
+		<div id="container" style="width: 100%; overflow: hidden; background-color:#F9F9F9"></div>
+	</div>
+
+	<!-- Data Container -->
+	<div id="data-container">
+	  <!-- Data Info Box -->
+	  <div id="desktop-infobox"
+	       style="padding: 10px; width: 100%;  border: 1px solid silver; text-align: left">
+		  <div id="title-desktop" style="font-size: 20px;"></div>
+		  <div>source: <span id="source-desktop"></span></div>
+	  </div>
+	  
+	  <!-- Data Table --><br />
+	  <table id="table" style="display:inline-block; vertical-align: top;"></table>
+	</div>
+	<div id="footer">Data and illustrations on this website are reviewed to avoid errors, but we cannot warrant full correctness of content.&nbsp; Copyright 2019. All Rights Reserved.<a style="float: right; text-decoration: none" href="http://www.terminalnotes.com/map-infographics">Developed by Surya Ranjan Shandil</a></div>
+</body>
+
+
+<script type="text/javascript" src="statesData.js"></script>
+<script type="text/javascript" src="util.js"></script>
+<script type="text/javascript" src="main.js"></script>
+<script>
+mobileMenuFlag = false
+function toggleMobileMenu(option) {
+	if (option === undefined) option = !mobileMenuFlag
+	if(document.getElementsByTagName('body')[0].clientWidth < 1400)
+	{
+		if (option) {
+			mobileMenuFlag = true
+			document.getElementById("list-container").style.display = "inline-block"
+		}
+		else {
+			mobileMenuFlag = false;
+			document.getElementsByTagName("body")[0].scrollTop = "0px"
+			document.getElementById("list-container").style.display = "none"
+		}
+	}
+}
+</script>
