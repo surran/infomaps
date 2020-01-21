@@ -351,11 +351,11 @@ stateNames: {"sikkim_1_": {name:"Sikkim", value: "1"},
 "fruitDensity":{ 
 			title: "Fruit Production Density",
 			shortTitle: "Fruit Production Density",
-			unit: "kilo tonne/km<sup>2</sup>",
+			unit: "tonne/km<sup>2</sup>",
 			source: "RBI Publications. 2016-17 Data",
 			sourceLink: "https://m.rbi.org.in/Scripts/PublicationsView.aspx?id=18862",
 			hueColor: "0",
-			processFunction: "divideByArea",
+			processFunction: "divideByMilliArea",
 			hueRange: false,
 			data: {"andaman_and_nicobar_1_": false,	"Andhra_Pradesh_2_": 12098, "arunachal_pradesh_1_": 311.5, "assam_1_": 	2391, "bihar_1_": 4273, "chandigarh_1_": false, "chhattisgarh_1_": 2394, "dadra_and_nagar_haveli_1_": false, "delhi_ncr_1_": false, "Goa_1_": false, "gujarat_1_": 8483, "haryana_1_": 900, "himachal_pradesh_1_":	639, "jammu_and_kashmir_1_": 2116, "siachen_1_": 2116, "path3787": 2116, "path3799": 2116, "path3803": 2116, "path3801": 2116, "path3781": 2116, "jharkhand_1_": 1026, "Karnataka_1_": 7425, "Kerala_1_": 2468, "madhya_pradesh_1_": 5937, "maharashtra_1_": 10378, "manipur_1_": 454, "meghalaya_1_": 447, "mizoram_1_": 339, "nagaland_1_": 393, "orissa_1_": 2430, "punjab_1_": 	1857, "rajasthan_1_": 718, "uttar_pradesh_1_": 10354, "uttaranchal_1_": 	665, "sikkim_1_": 27, "west_bengal_1_": 3709, "Tamil_Nadu_1_": 6080, "tripura_1_": 	846, "yanam_pondicherry_1_": 52, "pudducherry_pondicherry_1_": 52, "karikal_pondicherry_1": 52, "mahe_pondicherry_1_": 52, "path3007": 3537
 			}
@@ -525,7 +525,7 @@ stateNames: {"sikkim_1_": {name:"Sikkim", value: "1"},
 				"Vadodara": 3	
 }},
 "populationOfCities" : {
-			title: "Popultaion",
+			title: "Population",
 			shortTitle: "Popultaion",
 			unit: "lakh",
 			source: "Census 2011 Data",
