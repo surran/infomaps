@@ -70,7 +70,7 @@ function setHeading(heading) {
 function generatePlotsList() {
 	str = ""
 	Object.keys(plots).map(category=> {
-		str += `<div class="categoryTitle" onclick="displayCategory('${category}')"><span style="color: #ffaaaa; margin-right: 10px" id="${category}_state">▸</span>${category}</div><ul style="margin: 0px; list-style-type: none; padding-left: 5px; height: 0px; overflow: hidden; transition: all .2s" id="${category}_container">`
+		str += `<div class="categoryTitle" onclick="displayCategory('${category}')"><span style="color: #ffaaaa; margin-right: 10px" id="${category}_state">&#9656;</span>${category}</div><ul style="margin: 0px; list-style-type: none; padding-left: 5px; height: 0px; overflow: hidden; transition: all .2s" id="${category}_container">`
 		str += plots[category].map(thisPlot => `<li class="categoryItem" id = "${thisPlot}"
 							      onclick="setPlot('${thisPlot}')">${data[thisPlot].shortTitle}</li>`).join('')
 		str += "</ul>"
@@ -87,13 +87,13 @@ function displayCategory(category) {
 	if(displayedCategory)
 	{
 		document.getElementById(displayedCategory.container).style.height = "0px"
-		document.getElementById(displayedCategory.state).innerHTML = "▸"
+		document.getElementById(displayedCategory.state).innerHTML = " &#9656;"
 		displayedCategory = false;
 	}
 	if (!toggle)
 	{
 		document.getElementById(categoryContainer).style.height = document.getElementById(categoryContainer).scrollHeight
-		document.getElementById(categoryState).innerHTML = "▾"
+		document.getElementById(categoryState).innerHTML = "&#9662;"
 		displayedCategory = {container: categoryContainer, state: categoryState}
 	}
 }
