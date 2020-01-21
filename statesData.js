@@ -1,8 +1,9 @@
-plots = {"Infrastructure":[ "railwayDensity", "roadsDensity", "nationlHighayDensity", "installedPowerDensity" ], 
+plots = {"Cities":["populationOfCities","siesmicZones", "rainfallCities", "moterVehiclesOwnership", "wealthOfCities", "gdpOfCities", "growthOfWealth", "billionares"],
+		 "Infrastructure":[ "railwayDensity", "roadsDensity", "nationlHighayDensity", "installedPowerDensity" ], 
          "Agriculture": ["riceDensity", "fruitDensity"],
          "People": ["populationDensity2011", "decadalPopulationGrowth"],
          "Indices":["sexRatio2013", "lifeExpectancy2010to14"],
-     	 "Cities":["populationOfCities","siesmicZones", "rainfallCities", "moterVehiclesOwnership", "wealthOfCities", "gdpOfCities", "growthOfWealth", "billionares"]}
+     	 }
 
 const states = [   "Andhra_Pradesh_2_", "arunachal_pradesh_1_", "assam_1_", "bihar_1_", "chhattisgarh_1_", "gujarat_1_", "Goa_1_", "haryana_1_", "himachal_pradesh_1_", "jammu_and_kashmir_1_", "jharkhand_1_", "Karnataka_1_", "Kerala_1_", "madhya_pradesh_1_", "maharashtra_1_", "manipur_1_", "meghalaya_1_", "mizoram_1_", "nagaland_1_", "orissa_1_", "path3007", "path3781", "path3787", "path3799", "path3801", "path3803", "punjab_1_", "rajasthan_1_", "siachen_1_", "sikkim_1_", "Tamil_Nadu_1_", "tripura_1_", "uttar_pradesh_1_", "uttaranchal_1_", "west_bengal_1_"]
 const uts = ["andaman_and_nicobar_1_","dadra_and_nagar_haveli_1_", "chandigarh_1_", "delhi_ncr_1_","yanam_pondicherry_1_", "pudducherry_pondicherry_1_", "karikal_pondicherry_1_", "mahe_pondicherry_1_"]

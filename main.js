@@ -70,13 +70,32 @@ function setHeading(heading) {
 function generatePlotsList() {
 	str = ""
 	Object.keys(plots).map(category=> {
-		str += `<div style="padding: 15px 5px 5px 5px; color: black; font-family: arial; font-size: 20px;">${category}</div>`
-		str += plots[category].map(thisPlot => `<li id = "${thisPlot}"
-								  style="padding: 5px; cursor: pointer; color: blue; font-family: arial; font-size: 14px;"
+		str += `<div class="categoryTitle" onclick="displayCategory('${category}')"><span style="color: #ffaaaa; margin-right: 10px" id="${category}_state">▸</span>${category}</div><ul style="margin: 0px; list-style-type: none; padding-left: 5px; height: 0px; overflow: hidden; transition: all .2s" id="${category}_container">`
+		str += plots[category].map(thisPlot => `<li class="categoryItem" id = "${thisPlot}"
 							      onclick="setPlot('${thisPlot}')">${data[thisPlot].shortTitle}</li>`).join('')
+		str += "</ul>"
 		return;
 	})
 	document.getElementById("list").innerHTML = str;
+	displayCategory("Cities")
+}
+displayedCategory = false
+function displayCategory(category) {
+	const categoryContainer = `${category}_container`
+	const categoryState = `${category}_state`
+	const toggle = displayedCategory.container == categoryContainer
+	if(displayedCategory)
+	{
+		document.getElementById(displayedCategory.container).style.height = "0px"
+		document.getElementById(displayedCategory.state).innerHTML = "▸"
+		displayedCategory = false;
+	}
+	if (!toggle)
+	{
+		document.getElementById(categoryContainer).style.height = document.getElementById(categoryContainer).scrollHeight
+		document.getElementById(categoryState).innerHTML = "▾"
+		displayedCategory = {container: categoryContainer, state: categoryState}
+	}
 }
 
 function generateMinMax() {
@@ -190,7 +209,7 @@ function initialize(svg) {
 function main(svg) {
 	initialize(svg);
 	generatePlotsList();
-	setPlot(plots["Infrastructure"][0])
+	setPlot(plots["Cities"][0])
 }
 
 fetch("map.svg")
