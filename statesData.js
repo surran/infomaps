@@ -1,6 +1,6 @@
 plots = {"Cities":["populationOfCities","siesmicZones", "rainfallCities", "moterVehiclesOwnership", "wealthOfCities", "gdpOfCities", "growthOfWealth", "billionares"],
-		 "Infrastructure":[ "railwayDensity", "roadsDensity", "nationlHighayDensity", "installedPowerDensity" ], 
-         "Agriculture": ["riceDensity", "fruitDensity"],
+		 "Infrastructure":[ "railwayDensity", "roadsDensity", "nationlHighayDensity", "installedPowerDensity", "powerTransmissionLosses" ], 
+         "Agriculture": ["netSownAreaPercent", "netIrrigatedAreaPercent", "croppingIntensityPercent", "riceDensity", "fruitDensity"],
          "People": ["populationDensity2011", "decadalPopulationGrowth"],
          "Indices":["sexRatio2013", "lifeExpectancy2010to14"],
      	 }
@@ -450,6 +450,49 @@ stateNames: {"sikkim_1_": {name:"Sikkim", value: "1"},
 			hueRange: false,
 			data: 		{"Andhra_Pradesh_2_":10.98,"arunachal_pradesh_1_":26.03,"assam_1_":17.07,"bihar_1_":25.4,"chhattisgarh_1_":22.61,"gujarat_1_":19.28,"haryana_1_":19.9,"himachal_pradesh_1_":12.94,"jammu_and_kashmir_1_":23.64,"jharkhand_1_":22.42,"Karnataka_1_":15.6,"Kerala_1_":4.91,"madhya_pradesh_1_":20.35,"maharashtra_1_":15.99,"manipur_1_":24.5,"meghalaya_1_":29.95,"mizoram_1_":23.48,"nagaland_1_":-0.58,"orissa_1_":14.05,"punjab_1_":13.89,"rajasthan_1_":21.31,"sikkim_1_":12.89,"Tamil_Nadu_1_":15.61,"tripura_1_":14.84,"uttar_pradesh_1_":20.23,"uttaranchal_1_":18.81,"west_bengal_1_":13.84}
 		},
+"powerTransmissionLosses":{
+			title: "Power Transmission Losses",
+			shortTitle: "Power Transmission Losses",
+			unit: "percent",
+			source: "RBI Publications. 2016-2017 Data",
+			sourceLink: "https://m.rbi.org.in/Scripts/PublicationsView.aspx?id=18912",
+			hueColor: "0",
+			hueRange: false,
+			data: {"Andhra_Pradesh_2_":16.2,"arunachal_pradesh_1_":49.4,"assam_1_":25,"bihar_1_":30.3,"chhattisgarh_1_":25.6,"gujarat_1_":18.2,"haryana_1_":33.7,"himachal_pradesh_1_":22.4,"jammu_and_kashmir_1_":47,"jharkhand_1_":16.3,"Karnataka_1_":13.4,"Kerala_1_":18.1,"madhya_pradesh_1_":26.8,"maharashtra_1_":18.2,"manipur_1_":36.5,"meghalaya_1_":35.7,"mizoram_1_":35.5,"nagaland_1_":20.8,"orissa_1_":38.2,"punjab_1_":17.6,"rajasthan_1_":29.7,"sikkim_1_":23.8,"Tamil_Nadu_1_":12.6,"path3007":18.7,"tripura_1_":30.4,"uttar_pradesh_1_":23.6,"uttaranchal_1_":25.4,"west_bengal_1_":22.4}
+},
+"netSownAreaPercent":{
+			title: "Net Sown Area",
+			shortTitle: "Net Sown Area",
+			unit: "percent",
+			source: "RBI Publications. 2014-2015 Data",
+			sourceLink: "https://m.rbi.org.in/Scripts/PublicationsView.aspx?id=18842",
+			hueColor: "0",
+			processFunction: "divideByMilliArea",
+			hueRange: false,
+			data: {"Andhra_Pradesh_2_":6236,"arunachal_pradesh_1_":225,"assam_1_":2827,"bihar_1_":5278,"chhattisgarh_1_":4681,"Goa_1_":129,"gujarat_1_":10302,"haryana_1_":3522,"himachal_pradesh_1_":550,"jammu_and_kashmir_1_":758,"jharkhand_1_":1385,"Karnataka_1_":10044,"Kerala_1_":2043,"madhya_pradesh_1_":15351,"maharashtra_1_":17345,"manipur_1_":383,"meghalaya_1_":286,"mizoram_1_":145,"nagaland_1_":384,"orissa_1_":4474,"punjab_1_":4119,"rajasthan_1_":17521,"sikkim_1_":77,"Tamil_Nadu_1_":4819,"path3007":4377,"tripura_1_":255,"uttar_pradesh_1_":16598,"uttaranchal_1_":700,"west_bengal_1_":5238}
+		},
+"netIrrigatedAreaPercent":{
+			title: "Net Irrigated Area",
+			shortTitle: "Net Irrigated Area",
+			unit: "percent",
+			source: "RBI Publications. 2014-2015 Data",
+			sourceLink: "https://m.rbi.org.in/Scripts/PublicationsView.aspx?id=18844",
+			hueColor: "0",
+			processFunction: "divideByMilliArea",
+			hueRange: false,
+			data: {"Andhra_Pradesh_2_":2927,"arunachal_pradesh_1_":56,"assam_1_":296,"bihar_1_":2987,"chhattisgarh_1_":1466,"Goa_1_":39,"gujarat_1_":4233,"haryana_1_":2974,"himachal_pradesh_1_":113,"jammu_and_kashmir_1_":331,"jharkhand_1_":207,"Karnataka_1_":3589,"Kerala_1_":414,"madhya_pradesh_1_":9584,"maharashtra_1_":3244,"manipur_1_":69,"meghalaya_1_":81,"mizoram_1_":16,"nagaland_1_":97,"orissa_1_":1259,"punjab_1_":4118,"rajasthan_1_":7882,"sikkim_1_":12,"Tamil_Nadu_1_":2726,"path3007":1726,"tripura_1_":79,"uttar_pradesh_1_":14389,"uttaranchal_1_":330,"west_bengal_1_":3102}
+		},
+"croppingIntensityPercent":{
+			title: "Cropping Intensity",
+			shortTitle: "Cropping Intensity",
+			unit: "percent",
+			source: "RBI Publications. 2014-2015 Data",
+			sourceLink: "https://m.rbi.org.in/Scripts/PublicationsView.aspx?id=18845",
+			hueColor: "0",
+			hueRange: false,
+			data: {"Andhra_Pradesh_2_":123.3,"arunachal_pradesh_1_":132.8,"assam_1_":144.4,"bihar_1_":145.4,"chhattisgarh_1_":122.4,"Goa_1_":122,"gujarat_1_":124,"haryana_1_":185.6,"himachal_pradesh_1_":167,"jammu_and_kashmir_1_":155.3,"jharkhand_1_":112.2,"Karnataka_1_":121.9,"Kerala_1_":128.5,"madhya_pradesh_1_":155.1,"maharashtra_1_":135.3,"manipur_1_":100,"meghalaya_1_":120,"mizoram_1_":100,"nagaland_1_":130.3,"orissa_1_":115.6,"punjab_1_":190.8,"rajasthan_1_":138.3,"sikkim_1_":176,"Tamil_Nadu_1_":124.4,"path3007":121.5,"tripura_1_":189.3,"uttar_pradesh_1_":157.5,"uttaranchal_1_":156.7,"west_bengal_1_":185}
+		},
+		
 "siesmicZones" : {
 			title: "Siesmic Zones",
 			shortTitle: "Siesmic Zones",

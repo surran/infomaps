@@ -58,6 +58,9 @@ function divideByArea(key, value){
 }
 
 function getValue(id) {
+	const jkids = [ "path3787", "path3799",  "path3803", "path3801", "path3781", "siachen_1_"]
+	if (jkids.indexOf(id) >= 0) 
+		id = "jammu_and_kashmir_1_"
 	const {plot, plotType} = g
 	let value = data[plot].data[id]
 	if (value == false || 
@@ -67,6 +70,8 @@ function getValue(id) {
 		return false
 	if(data[plot].processFunction == "divideByArea")
 		value = divideByArea(id,value)
+	if(data[plot].processFunction == "divideByMilliArea")
+		value = divideByArea(id,value*1000)
 	return value
 }
 
