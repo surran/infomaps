@@ -51,10 +51,10 @@ function generateStatement(option = "highest") {
 	const maxValue = getValue(g.maxStateId)
 	switch(option) {
 		case "highest":
-			setStatement(`${maxName} has the highest ${shortTitle} of <b>${maxValue}</b> ${unit}.`);
+			setStatement(`${maxName} has the highest ${allSmall(shortTitle)} of <b>${maxValue}</b>${unit != "" ? " " + unit : ""}.`);
 			return;
 		case "this":
-			setStatement(`${name} has ${shortTitle} of <b>${value}</b> ${unit}.`)
+			setStatement(`${name} has ${allSmall(shortTitle)} of <b>${value}</b>${unit != "" ? " " + unit : ""}.`)
 			return;
 	}
 }
@@ -124,10 +124,11 @@ function generateMap() {
 		if (value != false && !isCityPlot)
 		{	
 			const hue = data[plot].hueColor
+			const saturation = data[plot].saturationPercent || "100"
 			const normalmizedValue = (value - min)/range || 0
-			color = `hsl(${hue}, 100%, ${97 - 47*(normalmizedValue)}%)`
+			color = `hsl(${hue}, ${saturation}%, ${97 - 47*(normalmizedValue)}%)`
 			if (data[plot].hueRange)
-				color = `hsl(${115*(normalmizedValue)}, 100%, 50%)`
+				color = `hsl(${115*(normalmizedValue)}, ${saturation}%, 50%)`
 		}
 
 		document.getElementById(state).setAttribute("fill", color)
@@ -150,7 +151,7 @@ function generateMap() {
 			if (data[plot].subType == "radius")
 			{
 				radius = 3 + 20*Math.pow(normalizedValue, .5)
-				color = `red`; 
+				color = `hsl(${data[plot].hueColor || 0}, ${data[plot].saturationPercent || 100}%, 50%)`; 
 			}
 			else
 			{
@@ -171,9 +172,11 @@ function generateMap() {
 
 function generateTable () {
 	const {plot, plotType} = g
-	const {title, unit, source, sourceLink} = data[plot]
+	const {title, unit, source, desc,  sourceLink} = data[plot]
 	//document.getElementById("title-desktop").innerHTML = unit ? `${title} (${unit})` : title
 	document.getElementById("title-mobile").innerHTML = unit ? `${title} (${unit})` : title
+	document.getElementById("desc-desktop").innerHTML = `${desc || ""}`
+	//document.getElementById("desc-mobile").innerHTML = `${desc}`
 	document.getElementById("source-desktop").innerHTML = `<a href="${sourceLink}" target="_blank">${source}</a>`
 	document.getElementById("source-mobile").innerHTML = `<a href="${sourceLink}" target="_blank">${source}</a>`
 	let stateFlag = {}
