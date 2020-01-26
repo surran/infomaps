@@ -56,6 +56,20 @@ function divideByArea(key, value){
 	returnValue = value/data.area.data[key]
 	return returnValue.toFixed(2)
 }
+function divideByPopulation(key, value){
+	returnValue = value/data.population.data[key]
+	return returnValue.toFixed(2)
+}
+
+function lakh(value){
+	returnValue = value/100000
+	return returnValue.toFixed(2)
+}
+
+function crore(value){
+	returnValue = value/10000000
+	return returnValue.toFixed(2)
+}
 
 function getValue(id) {
 	const jkids = [ "path3787", "path3799",  "path3803", "path3801", "path3781", "siachen_1_"]
@@ -63,15 +77,25 @@ function getValue(id) {
 		id = "jammu_and_kashmir_1_"
 	const {plot, plotType} = g
 	let value = data[plot].data[id]
-	if (value == false || 
+	if (value === false || 
 		plotType == "statePlot" && states.indexOf(id) < 0 || 
 		plotType == "cityPlot" && !(id in cities) || 
-		value == undefined )
+		value === undefined )
 		return false
+	const multiplier = data[plot].multiplier || 1
+	value = value*multiplier
 	if(data[plot].processFunction == "divideByArea")
 		value = divideByArea(id,value)
+    if(data[plot].processFunction == "croreDivideByPopulation")
+		value = divideByPopulation(id,value*10000000)
+	if(data[plot].processFunction == "divideByPopulation")
+		value = divideByPopulation(id,value)
 	if(data[plot].processFunction == "divideByMilliArea")
 		value = divideByArea(id,value*1000)
+	if(data[plot].processFunction == "lakh")
+		value = lakh(value)
+	if(data[plot].processFunction == "crore")
+		value = crore(value)
 	return value
 }
 
@@ -90,4 +114,10 @@ const capitalize = (s) => {
 
 const allSmall = (s) => {
 	return s.toLowerCase()
+}
+
+
+const getCategoryFromPlot = (plotKey) => {
+	const result = Object.keys(plots).filter(category=> (plots[category].indexOf(plotKey) >= 0))
+	return result[0]
 }

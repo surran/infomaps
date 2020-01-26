@@ -4,11 +4,16 @@ let g = {
 	min: 0,
 	range: 0,
     maxStateId: "",
+    minStateId: "",
     plotName: "",
     plotType: ""
 }
 
 let selected = false;
+
+function setHash(key) {
+	window.location.href = "#" + key
+}
 
 function setPlot(key) {
 	if (g.plot) 
@@ -72,12 +77,11 @@ function generatePlotsList() {
 	Object.keys(plots).map(category=> {
 		str += `<div class="categoryTitle" onclick="displayCategory('${category}')"><span style="color: #ffaaaa; margin-right: 10px" id="${category}_state">&#9656;</span>${category}</div><ul style="margin: 0px; list-style-type: none; padding-left: 5px; height: 0px; overflow: hidden; transition: all .2s" id="${category}_container">`
 		str += plots[category].map(thisPlot => `<li class="categoryItem" id = "${thisPlot}"
-							      onclick="setPlot('${thisPlot}')">${data[thisPlot].shortTitle}</li>`).join('')
+							      onclick="setHash('${thisPlot}')">${data[thisPlot].shortTitle}</li>`).join('')
 		str += "</ul>"
 		return;
 	})
 	document.getElementById("list").innerHTML = str;
-	displayCategory("Cities")
 }
 displayedCategory = false
 function displayCategory(category) {
@@ -109,29 +113,55 @@ function generateMinMax() {
 			g.max = Math.max(getValue(key), g.max)
 			if (g.max == getValue(key)) 
 			 g.maxStateId = key
+			if (g.max == getValue(key)) 
+			 g.minStateId = key
 		}
 	})
 	g.range = g.max - g.min
+}
+
+function sort() {
+	var sortable = [];
+
+	const {plot} = g
+	Object.keys(data[plot].data).map(key => { 
+		const value = getValue(key)
+		if (value)
+			sortable.push([key,value])
+	})
+
+	sortable.sort(function(a, b) {
+    return b[1] - a[1];})
+
+    return sortable.map(keyValue => keyValue[0])
 }
 
 function generateMap() {
 	const {plot, min, range, plotType} = g
 	const isCityPlot = (plotType == "cityPlot")
 	states.map(state => {
-		let color = isCityPlot ? "#eeeeee" : "#fafafa"; 
+		let color = "#eeeeee"//isCityPlot ? "#eeeeee" : "#fafafa"; 
 		const value = getValue(state);
 		const name = getName(state);
-		if (value != false && !isCityPlot)
+		if (value !== false && !isCityPlot)
 		{	
 			const hue = data[plot].hueColor
 			const saturation = data[plot].saturationPercent || "100"
+			const lightednessTop = data[plot].lightednessTop || 85
 			const normalmizedValue = (value - min)/range || 0
-			color = `hsl(${hue}, ${saturation}%, ${97 - 47*(normalmizedValue)}%)`
+			color = `hsl(${hue}, ${saturation}%, ${lightednessTop - 47*(normalmizedValue)}%)`
 			if (data[plot].hueRange)
-				color = `hsl(${115*(normalmizedValue)}, ${saturation}%, 50%)`
+			{
+				if (data[plot].invert)
+					color = `hsl(${115*(1-normalmizedValue)}, ${saturation}%, 50%)`
+				else
+					color = `hsl(${115*(normalmizedValue)}, ${saturation}%, 50%)`
+			}
 		}
 
 		document.getElementById(state).setAttribute("fill", color)
+		//if (color == "#fafafa")
+		//	document.getElementById(state).setAttribute("stroke", "#cccccc")
 		document.getElementById(state).innerHTML = isCityPlot ? "" : `<title>${name} : ${value}</title>`
 	    document.getElementById(state).setAttribute("onclick", `select("${state}")`)
 	});
@@ -144,7 +174,7 @@ function generateMap() {
 		citiesHTML = ""
 		Object.keys(cities).map(key => {
 			const city = cities[key]
-			const value = data[plot].data[key]
+			const value = getValue(key)
 			if (value == false || value == undefined) return
 			const normalizedValue = (value - min)/range || 0
 			let radius, color;
@@ -183,23 +213,25 @@ function generateTable () {
 	document.getElementById("table").innerHTML = ""
 	if(plotType == "cityPlot")
 	{
-		Object.keys(cities).map(city => {
+			sort(Object.keys(cities)).map(city => {
 			let value = getValue(city)
-			if (value == false)
-				value = "N.A."
-			return document.getElementById("table").innerHTML += `<tr><td>${capitalize(city)}</td><td>${value}</td></tr>`
+			//if (value == false)
+			//	value = "N.A."
+			if(value !== false) document.getElementById("table").innerHTML += `<tr><td>${capitalize(city)}</td><td>${value}</td></tr>`
+			return
 		})
 	} 
 	else if(plotType == "statePlot")
 	{
-		states.map(state => {
+			sort(states).map(state => {
 			if (stateFlag[data["stateNames"][state].name])
 				return 
 			stateFlag[data["stateNames"][state].name] = true
 			let value = getValue(state)
-			if (value == false)
-				value = "N.A."
-			return document.getElementById("table").innerHTML += `<tr><td>${data["stateNames"][state].name}</td><td>${value}</td></tr>`
+			//if (value == false)
+			//	value = "N.A."
+			if (value !== false) document.getElementById("table").innerHTML += `<tr><td>${data["stateNames"][state].name}</td><td>${value}</td></tr>`
+			return
 		})
 	}
 }
@@ -207,12 +239,26 @@ function generateTable () {
 function initialize(svg) {
 	document.getElementById("container").innerHTML = svg
   	document.getElementById("svg3642").style.transition = "all .5s"
+  	window.onhashchange = function() { 
+    	setPlot(window.location.hash.substring(1))
+	}
 }
 
 function main(svg) {
 	initialize(svg);
 	generatePlotsList();
-	setPlot(plots["Cities"][0])
+	if (window.location.hash !== "")
+	{
+	  const key = window.location.hash.substring(1)
+	  setPlot(key)
+	  const category = getCategoryFromPlot(key)
+	  displayCategory(category)
+	}
+	else
+	{
+	  setPlot(plots["Cities"][0])
+	  displayCategory("Cities")
+	}
 }
 
 fetch("map.svg")
