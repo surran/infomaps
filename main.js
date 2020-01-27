@@ -23,7 +23,8 @@ function setPlot(key) {
 	const {unit, shortTitle} = data[g.plot]
 	document.getElementById(g.plot).style.backgroundColor = "#eeeeee"
 	zoomOut()
-	setHeading(`${shortTitle} <span style="color:gray">in ${unit}</span>`)
+	const heading = unit === "" ? shortTitle : `${shortTitle} <span style="color:gray">in ${unit}</span>`
+	setHeading(heading)
 	generateMinMax()
 	generateMap();
 	generateTable();
