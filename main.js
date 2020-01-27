@@ -29,6 +29,7 @@ function setPlot(key) {
 	generateTable();
 	toggleMobileMenu(false)
 	generateStatement()
+	setShareUrls()
 }
 
 function select(key) {
@@ -206,6 +207,7 @@ function generateTable () {
 	//document.getElementById("title-desktop").innerHTML = unit ? `${title} (${unit})` : title
 	document.getElementById("title-mobile").innerHTML = unit ? `${title} (${unit})` : title
 	document.getElementById("desc-desktop").innerHTML = `${desc || ""}`
+	document.getElementById("desc-mobile").innerHTML = `${desc || ""}`
 	//document.getElementById("desc-mobile").innerHTML = `${desc}`
 	document.getElementById("source-desktop").innerHTML = `<a href="${sourceLink}" target="_blank">${source}</a>`
 	document.getElementById("source-mobile").innerHTML = `<a href="${sourceLink}" target="_blank">${source}</a>`

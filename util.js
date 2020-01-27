@@ -113,6 +113,8 @@ const capitalize = (s) => {
 }
 
 const allSmall = (s) => {
+	if (s == "USA Visa Count") return "USA visa count"
+	if (s == "UNESCO Heritage Sites Count") return "UNESCO heritage sites count"
 	return s.toLowerCase()
 }
 
@@ -120,4 +122,15 @@ const allSmall = (s) => {
 const getCategoryFromPlot = (plotKey) => {
 	const result = Object.keys(plots).filter(category=> (plots[category].indexOf(plotKey) >= 0))
 	return result[0]
+}
+
+const setShareUrls = () => {
+	const {unit, shortTitle} = data[g.plot]
+	const title = `InfoMaps | ${shortTitle}`
+	const url = window.location.href//"http://www.terminalnotes.com/social-share-buttons"
+	const twitterUrl = `https://twitter.com/share?text=${title}&amp;amp;url=${url}`
+	const fbUrl = `https://www.facebook.com/sharer/sharer.php?caption=${title}&amp;u=${url}`
+	document.getElementById("facebookShare").href = fbUrl
+	document.getElementById("twitterShare").href = twitterUrl
+
 }
