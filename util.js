@@ -114,6 +114,7 @@ const capitalize = (s) => {
 
 const allSmall = (s) => {
 	if (s == "USA Visa Count") return "USA visa count"
+	if (s == "FDI Approved by RBI") return "FDI Approved by RBI"
 	if (s == "UNESCO Heritage Sites Count") return "UNESCO heritage sites count"
 	return s.toLowerCase()
 }
