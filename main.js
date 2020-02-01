@@ -49,21 +49,31 @@ function select(key) {
 }
 
 function generateStatement(option = "highest") {
-	const {unit, shortTitle} = data[g.plot]
+	const {unit, shortTitle, bracket} = data[g.plot]
 	const name = selected && getName(selected)
 	const value = selected && getValue(selected)
 	if (name === undefined)
 		option = "highest"
 	const maxName = getName(g.maxStateId)
 	const maxValue = getValue(g.maxStateId)
-	switch(option) {
-		case "highest":
-			setStatement(`${maxName} has the highest ${allSmall(shortTitle)} of <b>${maxValue}</b>${unit != "" ? " " + unit : ""}.`);
-			return;
-		case "this":
-			setStatement(`${name} has ${allSmall(shortTitle)} of <b>${value}</b>${unit != "" ? " " + unit : ""}.`)
-			return;
-	}
+	if (!bracket)
+		switch(option) {
+			case "highest":
+				setStatement(`${maxName} has the highest ${allSmall(shortTitle)} of <b>${maxValue}</b>${unit != "" ? " " + unit : ""}.`);
+				return;
+			case "this":
+				setStatement(`${name} has ${allSmall(shortTitle)} of <b>${value}</b>${unit != "" ? " " + unit : ""}.`)
+				return;
+		}
+	if (bracket)
+		switch(option) {
+			case "highest":
+				setStatement(`${maxName} has the highest ${allSmall(shortTitle)} (<b>${maxValue}</b>${unit != "" ? " " + unit : ""}).`);
+				return;
+			case "this":
+				setStatement(`${name} has ${allSmall(shortTitle)} (<b>${value}</b>${unit != "" ? " " + unit : ""}).`)
+				return;
+		}
 }
 
 function setStatement(statement) {
@@ -139,7 +149,7 @@ function sort() {
 }
 
 function generateMap() {
-	const {plot, min, range, plotType} = g
+	const {plot, min, max, range, plotType} = g
 	const isCityPlot = (plotType == "cityPlot")
 	states.map(state => {
 		let color = "#eeeeee"//isCityPlot ? "#eeeeee" : "#fafafa"; 
@@ -150,7 +160,8 @@ function generateMap() {
 			const hue = data[plot].hueColor
 			const saturation = data[plot].saturationPercent || "100"
 			const lightednessTop = data[plot].lightednessTop || 85
-			const normalmizedValue = (value - min)/range || 0
+			const growth = data[plot].growth == "root" ? .5 : 1
+			const normalmizedValue = Math.pow((value - min)/range || 0, growth)
 			color = `hsl(${hue}, ${saturation}%, ${lightednessTop - 47*(normalmizedValue)}%)`
 			if (data[plot].hueRange)
 			{
@@ -178,11 +189,12 @@ function generateMap() {
 			const city = cities[key]
 			const value = getValue(key)
 			if (value == false || value == undefined) return
-			const normalizedValue = (value - min)/range || 0
+			const normalizedValue = (value)/max || 0
 			let radius, color;
 			if (data[plot].subType == "radius")
 			{
-				radius = 3 + 20*Math.pow(normalizedValue, .5)
+				growth = data[plot].growth == "square" ? 1 : .5
+				radius = 0 + 20*Math.pow(normalizedValue, growth)
 				color = `hsl(${data[plot].hueColor || 0}, ${data[plot].saturationPercent || 100}%, 50%)`; 
 			}
 			else
@@ -244,6 +256,8 @@ function initialize(svg) {
   	document.getElementById("svg3642").style.transition = "all .5s"
   	window.onhashchange = function() { 
     	setPlot(window.location.hash.substring(1))
+    	document.body.scrollTop = 0
+
 	}
 }
 
@@ -259,8 +273,8 @@ function main(svg) {
 	}
 	else
 	{
-	  setPlot(plots["Cities"][0])
-	  displayCategory("Cities")
+	  setPlot(plots["Environment"][1])
+	  displayCategory("Environment")
 	}
 }
 
