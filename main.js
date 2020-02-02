@@ -21,7 +21,7 @@ function setPlot(key) {
 	g.plot = key
 	g.plotType = data[g.plot].type || "statePlot"
 	const {unit, shortTitle} = data[g.plot]
-	document.getElementById(g.plot).style.backgroundColor = "#eeeeee"
+	 document.getElementById(g.plot).style.backgroundColor = "#eeeeee"
 	zoomOut()
 	const heading = unit === "" ? shortTitle : `${shortTitle} <span style="color:gray">in ${unit}</span>`
 	setHeading(heading)
@@ -255,7 +255,9 @@ function initialize(svg) {
 	document.getElementById("container").innerHTML = svg
   	document.getElementById("svg3642").style.transition = "all .5s"
   	window.onhashchange = function() { 
-    	setPlot(window.location.hash.substring(1))
+  		const hash = window.location.hash.substring(1)
+
+    	setPlot(hash)
     	document.body.scrollTop = 0
 
 	}
@@ -264,11 +266,11 @@ function initialize(svg) {
 function main(svg) {
 	initialize(svg);
 	generatePlotsList();
-	if (window.location.hash !== "")
+    const hash = window.location.hash != "" && window.location.hash.substring(1)
+	if (hash && hash in data)
 	{
-	  const key = window.location.hash.substring(1)
-	  setPlot(key)
-	  const category = getCategoryFromPlot(key)
+	  setPlot(hash)
+	  const category = getCategoryFromPlot(hash)
 	  displayCategory(category)
 	}
 	else

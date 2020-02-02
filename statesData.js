@@ -9,7 +9,7 @@ plots = {"Indices":["povertyRate","birthRate", "literacyRate", "infantMortality"
          //"People": ["populationDensity2011", "decadalPopulationGrowth"],
          "Safety": ["crimeRate", "murderCrimeRate", "crimeAgainstWomenRate", "roadAccidentMortality", "crimeRateCities", "violentCrimeRateCities"],
          "Tourism":["foreignTouristArrival","foreignTouristArrivalPerCapita", "unescoHeritageSites", "domesticTouristArrival", "domesticVisitorsMonuments","foreignVisitorsMonuments" ],
-     	 "Outreach":  ["exportsShare", "FDIcitiwise", "USVisa"]
+     	// "Outreach":  ["exportsShare", "FDIcitiwise", "USVisa"]
      	 }
 
 const states = [   "Andhra_Pradesh_2_", "arunachal_pradesh_1_", "assam_1_", "bihar_1_", "chhattisgarh_1_", "gujarat_1_", "Goa_1_", "haryana_1_", "himachal_pradesh_1_", "jammu_and_kashmir_1_", "jharkhand_1_", "Karnataka_1_", "Kerala_1_", "madhya_pradesh_1_", "maharashtra_1_", "manipur_1_", "meghalaya_1_", "mizoram_1_", "nagaland_1_", "orissa_1_", "path3007", "path3781", "path3787", "path3799", "path3801", "path3803", "punjab_1_", "rajasthan_1_", "siachen_1_", "sikkim_1_", "Tamil_Nadu_1_", "tripura_1_", "uttar_pradesh_1_", "uttaranchal_1_", "west_bengal_1_"]
