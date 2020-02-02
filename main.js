@@ -218,7 +218,7 @@ function generateTable () {
 	const {plot, plotType} = g
 	const {title, unit, source, desc,  sourceLink} = data[plot]
 	//document.getElementById("title-desktop").innerHTML = unit ? `${title} (${unit})` : title
-	document.getElementById("title-mobile").innerHTML = unit ? `${title} (${unit})` : title
+	document.getElementById("title-mobile").innerHTML = unit ? `${title} <span style="color: silver">(${unit})</span>` : title
 	document.getElementById("desc-desktop").innerHTML = `${desc || ""}`
 	document.getElementById("desc-mobile").innerHTML = `${desc || ""}`
 	//document.getElementById("desc-mobile").innerHTML = `${desc}`
