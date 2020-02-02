@@ -128,9 +128,10 @@ const getCategoryFromPlot = (plotKey) => {
 const setShareUrls = () => {
 	const {unit, shortTitle} = data[g.plot]
 	const title = `InfoMaps | ${shortTitle}`
+	const twitterText = `Infographics India, ${shortTitle}`
 	const url = window.location.href//"http://www.terminalnotes.com/social-share-buttons"
 
-	const twitterUrl = `https://twitter.com/share?text=${title}&amp;url=${url}`
+	const twitterUrl = `https://twitter.com/share?text=${twitterText}&amp;url=${url}`
 	const fbUrl = `https://www.facebook.com/sharer/sharer.php?caption=${title}&u=${url}`
 	document.getElementById("facebookShare").href = fbUrl
 	document.getElementById("facebookShare").onclick = (event) => { sharePopup(fbUrl, 
