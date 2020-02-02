@@ -33,6 +33,12 @@ function setPlot(key) {
 	setShareUrls()
 }
 
+const sharePopup = (URL, event, title, dimension) => {
+	window.open(URL, title, `width=${dimension.width},height=${dimension.height}`); 
+	event.preventDefault(); 
+	return false;
+}
+
 function select(key) {
 	const {plotType} = g
 	const previousSelection = selected;
