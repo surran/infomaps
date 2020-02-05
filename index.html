@@ -233,6 +233,9 @@ function toggleMobileMenu(option) {
 		if (option) {
 			mobileMenuFlag = true
 			document.getElementById("list-container").style.display = "inline-block"
+			const category = getCategoryFromPlot(g.plot)
+			displayedCategory = false
+	  		displayCategory(category)
 		}
 		else {
 			mobileMenuFlag = false;
