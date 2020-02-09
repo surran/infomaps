@@ -154,6 +154,26 @@ function sort() {
     return sortable.map(keyValue => keyValue[0])
 }
 
+function getNormalizedValue(value)
+{
+	const {plot, min, max, range, plotType} = g
+	const isCityPlot = (plotType == "cityPlot")
+	const growth = data[plot].growth == "root" ? .5 : 1
+	if (isCityPlot)
+	{
+		return (value)/max || 0
+	}
+	return Math.pow((value - min)/range || 0, growth)
+}
+
+function getHSLColor(){
+	const {plot} = g
+	const hue = data[plot].hueColor
+	const saturation = data[plot].saturationPercent || "100"
+	const lightednessTop = data[plot].lightednessTop || 85
+	return `hsl(${hue}, ${saturation}%,${lightednessTop}%)`
+}
+
 function generateMap() {
 	const {plot, min, max, range, plotType} = g
 	const isCityPlot = (plotType == "cityPlot")
@@ -166,8 +186,7 @@ function generateMap() {
 			const hue = data[plot].hueColor
 			const saturation = data[plot].saturationPercent || "100"
 			const lightednessTop = data[plot].lightednessTop || 85
-			const growth = data[plot].growth == "root" ? .5 : 1
-			const normalmizedValue = Math.pow((value - min)/range || 0, growth)
+			const normalmizedValue = getNormalizedValue(value)
 			color = `hsl(${hue}, ${saturation}%, ${lightednessTop - 47*(normalmizedValue)}%)`
 			if (data[plot].hueRange)
 			{
@@ -195,7 +214,7 @@ function generateMap() {
 			const city = cities[key]
 			const value = getValue(key)
 			if (value == false || value == undefined) return
-			const normalizedValue = (value)/max || 0
+			const normalizedValue = getNormalizedValue(value)
 			let radius, color;
 			if (data[plot].subType == "radius")
 			{
@@ -238,7 +257,7 @@ function generateTable () {
 			let value = getValue(city)
 			//if (value == false)
 			//	value = "N.A."
-			if(value !== false) document.getElementById("table").innerHTML += `<tr><td>${capitalize(city)}</td><td>${value}</td></tr>`
+			if(value !== false) document.getElementById("table").innerHTML += `<tr><td style=" width: 100%">${barGraphDiv(value)}${capitalize(city)}</td><td>${value}</td></tr>`
 			return
 		})
 	} 
@@ -251,10 +270,15 @@ function generateTable () {
 			let value = getValue(state)
 			//if (value == false)
 			//	value = "N.A."
-			if (value !== false) document.getElementById("table").innerHTML += `<tr><td>${data["stateNames"][state].name}</td><td>${value}</td></tr>`
+			if (value !== false) document.getElementById("table").innerHTML += `<tr ><td style=" width: 100%">${barGraphDiv(value)}${data["stateNames"][state].name}</td><td>${value}</td></tr>`
 			return
 		})
 	}
+}
+
+function barGraphDiv(value)
+{
+	return `<div style="background-color: hsl(30, 100%,85%); width: ${getNormalizedValue(value)*100}%; height: 20px; z-index: -1; position: absolute;"></div>`
 }
 
 function initialize(svg) {
