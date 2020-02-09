@@ -20,6 +20,7 @@
 		width: 300px;
 		box-sizing: border-box;
 		margin-top: 10px;
+		z-index: 1;
 	}
 
 	#desc-desktop {
@@ -124,6 +125,7 @@
 				margin-top: 0px;
 				margin-right: 0px;
 				width: 100%;
+				z-index: 5;
 				max-width: unset;
 				box-shadow: rgba(0, 0, 0, 0.15) 0px 12px 14px;
 		}
@@ -181,7 +183,7 @@
 		<div id="mobile-menu-button" style= "float: right" onclick="toggleMobileMenu()"><svg height="25px" width="25px"><rect x="0" y="0" height="4" width="25" fill="black"></rect><rect x="0" y="7" height="4" width="25" fill="black"></rect><rect x="0" y="14" height="4" width="25" fill="black"></rect></svg></div>
 	</div>
 	<!-- Maps List -->
-	<div id="list-container" style=" transition: all .5s; padding: 20px; vertical-align: top; text-align: left; z-index: 1">
+	<div id="list-container" style=" transition: all .5s; padding: 20px; vertical-align: top; text-align: left;">
 		<div id="list" ></div>
 	</div>
 
