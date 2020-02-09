@@ -197,6 +197,7 @@
 		</div>
 		<!-- Statement -->
 		<div id="statement" style="padding: 10px; background: aqua; user-select: none; font-family: arial; text-align: center;"></div>
+		<div id="statement-dummy"></div>
 		<!-- Map -->
 		<div id="container" style="width: 100%; overflow: hidden; background-color:#F9F9F9"></div>
 	</div>
@@ -272,16 +273,19 @@ function scrollFn() {
 	statementTop = document.getElementById("statement").getBoundingClientRect().top
 	if(statementTop < 0)
 	{
+		document.getElementById("statement-dummy").style.height = document.getElementById("statement").clientHeight + "px"
 		document.getElementById("statement").style.position = "fixed"
+		
 		document.getElementById("statement").style.top = "0px"
 	}
 	/*else {
 		document.getElementById("statement").style.position = "unset"
 		document.getElementById("statement").style.top = "unset"
 	}*/
-	if(document.getElementsByTagName("body")[0].scrollTop < initialStatementTop)
+	if(document.getElementById("container").getBoundingClientRect().top - document.getElementById("statement").clientHeight > 0)
 	{
 		document.getElementById("statement").style.position = "unset"
+		document.getElementById("statement-dummy").style.height = "0px"
 	}
 }
 </script>
