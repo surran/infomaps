@@ -159,11 +159,15 @@ function getNormalizedValue(value)
 	const {plot, min, max, range, plotType} = g
 	const isCityPlot = (plotType == "cityPlot")
 	const growth = data[plot].growth == "root" ? .5 : 1
-	if (isCityPlot)
-	{
-		return (value)/max || 0
-	}
 	return Math.pow((value - min)/range || 0, growth)
+}
+
+function getAbsNormalizedValue(value)
+{
+	const {plot, min, max, range, plotType} = g
+	const isCityPlot = (plotType == "cityPlot")
+	const growth = data[plot].growth == "root" ? .5 : 1
+	return (value)/max || 0
 }
 
 function getHSLColor(){
@@ -214,7 +218,7 @@ function generateMap() {
 			const city = cities[key]
 			const value = getValue(key)
 			if (value == false || value == undefined) return
-			const normalizedValue = getNormalizedValue(value)
+			const normalizedValue = getAbsNormalizedValue(value)
 			let radius, color;
 			if (data[plot].subType == "radius")
 			{
@@ -278,7 +282,7 @@ function generateTable () {
 
 function barGraphDiv(value)
 {
-	return `<div style="background-color: hsl(30, 100%,85%); width: ${getNormalizedValue(value)*100}%; height: 20px; z-index: -1; position: absolute;"></div>`
+	return `<div style="background-color: hsl(30, 100%,85%); width: ${getAbsNormalizedValue(value)*100}%; height: 20px; z-index: -1; position: absolute;"></div>`
 }
 
 function initialize(svg) {
