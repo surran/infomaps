@@ -286,6 +286,8 @@ function barGraphDiv(value)
 }
 
 function initialize(svg) {
+	document.getElementById("loading").style.display = "none" 
+		document.getElementById("loaded").style.display = "block" 
 	document.getElementById("container").innerHTML = svg
   	document.getElementById("svg3642").style.transition = "all .5s"
   	window.onhashchange = function() { 
