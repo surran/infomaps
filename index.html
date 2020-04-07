@@ -13,11 +13,13 @@
 
 	#list-container {
 		display:inline-block;
-		max-width: 300px;
+		max-width: 280px;
 		position: relative;
 		background: white;
 		margin: 0px;
-		width: 300px;
+		padding: 20px;
+		width: 280px;
+		padding-left:0px;
 		box-sizing: border-box;
 		margin-top: 10px;
 		z-index: 1;
@@ -51,7 +53,7 @@
 	}
 
 	#map-container {
-		max-width: 680px;
+		max-width: 675px;
         box-sizing: border-box;
 		width:100%; 
 		display: inline-block;
@@ -68,7 +70,7 @@
 	}
 	#statement {
 		font-size: 20px;
-		max-width: 680px;
+		max-width: 675px;
     	width: 100%;
     	box-sizing: border-box;
     	z-index: 1;
@@ -123,7 +125,7 @@
 	  }
 	}
 
-	@media only screen and (max-width: 1300px) {
+	@media only screen and (max-width: 1299px) {
 		#data-container {
 			margin: 20px;
 			user-select: none; 
@@ -133,6 +135,7 @@
 		#list-container {
 				position: absolute;
 				display: none;
+				padding: 20px;
 				overflow-y: auto;
 				right: 0px;
 				margin-top: 0px;
@@ -190,7 +193,7 @@
 		}
 	}
 </style>
-<body style="margin: 0px; text-align: center; height: 100%; user-select: none; " onscroll="scrollFn()" onresize="resizeFn()" onclick="bodyClick(event)">
+<body style="margin: 0px; width: 100%; box-sizing: border-box; text-align: center; height: 100%; user-select: none; " onscroll="scrollFn()" onresize="resizeFn()" onclick="bodyClick(event)">
 	
 	<div id="header" style="width: 100%; height: 60px; box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 5px; z-index: 1">
 		<div style="display:inline-block; float: left; font-size: 20px; font-size: 30px; padding: 10px 0px 0px 30px;"><span style="color: red;">InfoMaps</span><span id="desktop-heading"><span id="separator">&nbsp;|&nbsp;</span><span id="heading" style="font-size: 25px;"></span></span></div>
@@ -204,7 +207,7 @@
 	</svg></div></div>
 	<div id="loaded" style="display:none">
 		<!-- Maps List -->
-		<div id="list-container" style=" transition: all .5s; padding: 20px; vertical-align: top; text-align: left;">
+		<div id="list-container" style=" transition: all .5s;  vertical-align: top; text-align: left;">
 			<div id="list" ></div>
 		</div>
 
@@ -227,7 +230,7 @@
 		<div id="data-container">
 		  <!-- Data Info Box -->
 		  <div id="desktop-infobox"
-		       style="padding: 10px; width: 100%;  border: 1px solid silver; text-align: left">
+		       style="padding: 10px; box-sizing: border-box;  width: 100%;  border: 1px solid silver; text-align: left">
 			  <div id="title-desktop" style="font-size: 20px;"></div>
 			  <div id="desc-desktop"></div>
 			  <div>source: <span id="source-desktop"></span></div>
@@ -249,13 +252,13 @@
 <script>
 mobileMenuFlag = false
 initialStatementTop = document.getElementById("statement").getBoundingClientRect().top
-mapContainerMaxWidth = Math.min((document.body.clientHeight - 150)*70/79, 680)
+mapContainerMaxWidth = Math.min((document.body.clientHeight - 162.5)*70/79, 675)
 document.getElementById("map-container").style.maxWidth = mapContainerMaxWidth
 document.getElementById("statement").style.maxWidth = mapContainerMaxWidth
 
 function toggleMobileMenu(option) {
 	if (option === undefined) option = !mobileMenuFlag
-	const isMobile = document.getElementsByTagName('body')[0].clientWidth < 1300
+	const isMobile = window.innerWidth  < 1300
 	if(isMobile)
 	{
 		if (option) {
@@ -287,7 +290,7 @@ function bodyClick(e) {
 }
 
 function resizeFn() {
-	const isMobile = document.getElementsByTagName('body')[0].clientWidth < 1300
+	const isMobile = window.innerWidth < 1300
 	if(!isMobile) toggleMobileMenu(false)
 }
 
